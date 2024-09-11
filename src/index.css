@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+::-webkit-scrollbar {
+    width: 2px; /* Width of the scrollbar */
+  }
+  
+  /* The track (background of the scrollbar) */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+  
+  /* The handle (scrollbar itself) */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 10px; /* Make it rounded */
+  }
+  
+  /* Hover effect for the handle */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }
