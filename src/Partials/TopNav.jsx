@@ -1,62 +1,78 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+// import Call from "../Utils/Call";
+import axios from "axios";
 
 function TopNav() {
   var [In, SetIn] = useState("");
   const [isActive, setIsActive] = useState(false);
-  const movieNames = [
-    "Inception",
-    "The Matrix",
-    "Interstellar",
-    "The Godfather",
-    "The Dark Knight",
-    "Pulp Fiction",
-    "Fight Club",
-    "Forrest Gump",
-    "Gladiator",
-    "The Shawshank Redemption",
-    "The Lord of the Rings: The Fellowship of the Ring",
-    "The Lord of the Rings: The Two Towers",
-    "The Lord of the Rings: The Return of the King",
-    "Star Wars: A New Hope",
-    "Star Wars: The Empire Strikes Back",
-    "Star Wars: Return of the Jedi",
-    "Avengers: Endgame",
-    "Avengers: Infinity War",
-    "Iron Man",
-    "Captain America: The Winter Soldier",
-    "Guardians of the Galaxy",
-    "Spider-Man: Into the Spider-Verse",
-    "Jurassic Park",
-    "The Lion King",
-    "Toy Story",
-    "Finding Nemo",
-    "Coco",
-    "Monsters, Inc.",
-    "The Incredibles",
-    "Ratatouille",
-    "The Departed",
-    "Shutter Island",
-    "The Prestige",
-    "Django Unchained",
-    "Inglourious Basterds",
-    "Titanic",
-    "Braveheart",
-    "Schindler's List",
-    "A Beautiful Mind",
-    "Whiplash",
-    "Mad Max: Fury Road",
-    "John Wick",
-    "The Social Network",
-    "The Wolf of Wall Street",
-    "La La Land",
-    "Harry Potter and the Sorcerer's Stone",
-    "Harry Potter and the Chamber of Secrets",
-    "Harry Potter and the Prisoner of Azkaban",
-    "Pirates of the Caribbean: The Curse of the Black Pearl",
-    "The Terminator",
-    "Terminator 2: Judgment Day",
-  ];
+  const k='95e6ba64';
+  const startSearch=async()=>{
+    try{
+      const y=await axios.get(`http://www.omdbapi.com/?s=${In}&apikey=${k}`)
+      console.log(y.data.Search);
+    }
+    catch(error){
+      console.log(error);
+    }
+
+  }
+  useEffect(()=>{
+    startSearch();
+  });
+  // const movieNames = [
+  //   "Inception",
+  //   "The Matrix",
+  //   "Interstellar",
+  //   "The Godfather",
+  //   "The Dark Knight",
+  //   "Pulp Fiction",
+  //   "Fight Club",
+  //   "Forrest Gump",
+  //   "Gladiator",
+  //   "The Shawshank Redemption",
+  //   "The Lord of the Rings: The Fellowship of the Ring",
+  //   "The Lord of the Rings: The Two Towers",
+  //   "The Lord of the Rings: The Return of the King",
+  //   "Star Wars: A New Hope",
+  //   "Star Wars: The Empire Strikes Back",
+  //   "Star Wars: Return of the Jedi",
+  //   "Avengers: Endgame",
+  //   "Avengers: Infinity War",
+  //   "Iron Man",
+  //   "Captain America: The Winter Soldier",
+  //   "Guardians of the Galaxy",
+  //   "Spider-Man: Into the Spider-Verse",
+  //   "Jurassic Park",
+  //   "The Lion King",
+  //   "Toy Story",
+  //   "Finding Nemo",
+  //   "Coco",
+  //   "Monsters, Inc.",
+  //   "The Incredibles",
+  //   "Ratatouille",
+  //   "The Departed",
+  //   "Shutter Island",
+  //   "The Prestige",
+  //   "Django Unchained",
+  //   "Inglourious Basterds",
+  //   "Titanic",
+  //   "Braveheart",
+  //   "Schindler's List",
+  //   "A Beautiful Mind",
+  //   "Whiplash",
+  //   "Mad Max: Fury Road",
+  //   "John Wick",
+  //   "The Social Network",
+  //   "The Wolf of Wall Street",
+  //   "La La Land",
+  //   "Harry Potter and the Sorcerer's Stone",
+  //   "Harry Potter and the Chamber of Secrets",
+  //   "Harry Potter and the Prisoner of Azkaban",
+  //   "Pirates of the Caribbean: The Curse of the Black Pearl",
+  //   "The Terminator",
+  //   "Terminator 2: Judgment Day",
+  // ];
   return (
     <div className="w-[70%] h-[15%] p-5 relative flex items-center justify-center">
       <input
@@ -70,13 +86,7 @@ function TopNav() {
       <i  className="ri-search-2-line text-[2rem] ml-5  flex items-center justify-center h-[3.5rem] w-[3.5rem] rounded-full bg-[#FF4500] text-[#F1F1F1] "></i>
       {isActive && (
         <div className="absolute max-h-96 w-[77%] overflow-scroll overflow-x-hidden top-[5.8rem] left-28 ">
-          {movieNames
-            .filter((movie) => movie.toLowerCase().includes(In.toLowerCase()))
-            .map((movie, index) => {
-              return (
-                <Link key={index} className="flex rounded-lg hover:bg-[#F4A261] duration-100 gap-3 text-[#F1F1F1] p-6 pl-3">{movie}</Link>
-              );
-            })}
+            
         </div>
       )}
     </div>
