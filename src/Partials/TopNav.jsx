@@ -44,10 +44,11 @@ function TopNav() {
             return (
               <div
                 key={index}
-                className="flex rounded-lg hover:bg-[#F4A261] gap-3 text-[#F1F1F1] p-6 pl-3"
+                className="flex rounded-lg hover:bg-[#F4A261] gap-3 text-[#F1F1F1] p-5 pl-3 duration-75"
               >
-
-               <h1> {movie.Title}</h1> 
+                  <img className="h-16 w-16 object-center" src={movie.Poster} alt=""></img>
+               <h1 className="pt-5"> {movie.Title}</h1> 
+               <h1></h1>
               </div>
             );
           })}
