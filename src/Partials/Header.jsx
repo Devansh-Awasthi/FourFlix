@@ -4,6 +4,7 @@ function Header() {
   
    const k= "95e6ba64";
    var [v,setv]=useState([]);
+   var a;
 
     const clientId = 'e05d08fa373e1192315a37425be3a6d41c146336b973e4820c11fdb1b96b1f53'; 
     
@@ -23,16 +24,18 @@ function Header() {
         console.error('Error fetching popular movies:', error);
       }
 
-      console.log(imdbIds);
+      // console.log(imdbIds);
       if (imdbIds) {
-        imdbIds.forEach(async(element) => {
+       a= imdbIds.map(async(element) => {
           try {
             const y = await axios.get(
               `http://www.omdbapi.com/?i=${element}&apikey=${k}`
             );
             if (y.data) {
-              console.log(y.data);
-             
+              return y.data; 
+            }
+             else {
+              return null;
             }
           } catch (error) {
             console.log(error);
@@ -40,15 +43,29 @@ function Header() {
         });
    
     }
+    setv(await Promise.all(a));
     };
 useEffect(()=>{
   fetchPopularMovies();
-  },[]);
+  });
 
 
   return (
-
-    <div onClick={()=>fetchPopularMovies()} className='text-white'> Headder</div>
+      <div className='h-full w-[80vw] flex'>  
+      {/* {v.map((movie, index) => {
+        return (
+          <div
+            key={index}
+            className="h-full w-full"
+          >
+           
+          </div>
+        );
+      })} */
+      }
+         <img className="h-[50%] w-[90%] object-center" src={v[8].Poster} alt=""></img>
+      </div>
+ 
   )
 }
 

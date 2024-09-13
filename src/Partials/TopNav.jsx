@@ -28,7 +28,7 @@ function TopNav() {
     startSearch();
   },[In]);
   return (
-    <div className="w-[70%] h-[15%] p-5 relative flex items-center justify-center">
+    <div className="w-[85%] h-[15%] p-5 pl28 relative flex ">
       <input
         className="w-[80%] h-[3rem] bg-transparent text-[#F1F1F1] rounded-lg border-[#F1F1F1] border-[1px] p-4"
         onChange={(e) => SetIn(e.target.value)}
@@ -39,7 +39,7 @@ function TopNav() {
       ></input>
       <i className="ri-search-2-line text-[2rem] ml-5  flex items-center justify-center h-[3.5rem] w-[3.5rem] rounded-full bg-[#FF4500] text-[#F1F1F1] "></i>
       {isActive && In && (
-        <div className="absolute max-h-96 w-[77%] overflow-scroll overflow-x-hidden top-[5.8rem] left-28 ">
+        <div className="absolute max-h-96 w-[77%] overflow-scroll overflow-x-hidden top-[5.8rem] left-5 ">
           {v.map((movie, index) => {
             return (
               <div
