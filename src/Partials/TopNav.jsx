@@ -17,7 +17,7 @@ function TopNav() {
           `http://www.omdbapi.com/?s=${In}&apikey=${k}`
         );
         if (y.data.Search) {
-          console.log(y.data.Search);
+          // console.log(y.data.Search);
           setv(y.data.Search);
         }
       } catch (error) {
@@ -44,11 +44,13 @@ function TopNav() {
             return (
               <div
                 key={index}
-                className="flex rounded-lg hover:bg-[#F4A261] gap-3 text-[#F1F1F1] p-5 pl-3 duration-75"
+                className="flex rounded-lg font-semibold hover:bg-[#F4A261] gap-3 text-[#F1F1F1] p-5 pl-3 duration-75"
               >
-                  <img className="h-16 w-16 object-center" src={movie.Poster} alt=""></img>
-               <h1 className="pt-5"> {movie.Title}</h1> 
-               <h1></h1>
+                  <img className="h-16 w-16 object-cover" src={movie.Poster} alt=""></img>
+                  <div className="pt-5 flex gap-y-16">
+               <h1 > {movie.Title}</h1> 
+               (<h1 >{movie.Year}</h1>)
+               </div>
               </div>
             );
           })}
