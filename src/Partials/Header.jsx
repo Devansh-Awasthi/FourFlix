@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 function Header() {
   
@@ -10,14 +10,15 @@ function Header() {
     const fetchPopularMovies = async () => {
       var imdbIds;
       try {
-        const response = await axios.get('https://api.trakt.tv/movies/popular', {
+        const response = await axios.get('https://api.trakt.tv/movies/trending', {
           headers: {
             'Content-Type': 'application/json',
             'trakt-api-version': '2',
             'trakt-api-key':clientId
           }
         });
-         imdbIds = response.data.map(movie => movie.ids.imdb);
+        // console.log(response.data);
+         imdbIds = response.data.map(a => a.movie.ids.imdb);
          } catch (error) {
         console.error('Error fetching popular movies:', error);
       }
@@ -40,6 +41,9 @@ function Header() {
    
     }
     };
+useEffect(()=>{
+  fetchPopularMovies();
+  },[]);
 
 
   return (
