@@ -4,3 +4,13 @@ Text: #F1F1F1 (Light Grey)
 Accent/Links: #FF8C00 (Vibrant Orange)
 Buttons: #FF4500 (Bright Red-Orange)
 Hover Effects: #F4A261 (Peachy Orange) */
+@keyframes slideIn {
+    from {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
