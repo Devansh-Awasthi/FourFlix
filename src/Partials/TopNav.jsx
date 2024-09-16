@@ -12,23 +12,23 @@ function TopNav() {
   useEffect(() => {
     const startSearch = async () => {
       if (In) {
-      try {
-        const y = await axios.get(
-          `http://www.omdbapi.com/?s=${In}&apikey=${k}`
-        );
-        if (y.data.Search) {
-          // console.log(y.data.Search);
-          setv(y.data.Search);
+        try {
+          const y = await axios.get(
+            `http://www.omdbapi.com/?s=${In}&apikey=${k}`
+          );
+          if (y.data.Search) {
+            // console.log(y.data.Search);
+            setv(y.data.Search);
+          }
+        } catch (error) {
+          console.log(error);
         }
-      } catch (error) {
-        console.log(error);
       }
-    }
-  };
+    };
     startSearch();
-  },[In]);
+  }, [In]);
   return (
-    <div className="w-[85%] h-[15%] p-5 pl28 relative flex ">
+    <div className="w-[85%] h-[15%] p-5 relative flex ">
       <input
         className="w-[80%] h-[3rem] bg-transparent text-[#F1F1F1] rounded-lg border-[#F1F1F1] border-[1px] p-4"
         onChange={(e) => SetIn(e.target.value)}
@@ -39,18 +39,21 @@ function TopNav() {
       ></input>
       <i className="ri-search-2-line text-[2rem] ml-5  flex items-center justify-center h-[3.5rem] w-[3.5rem] rounded-full bg-[#FF4500] text-[#F1F1F1] "></i>
       {isActive && In && (
-        <div className="absolute max-h-96 w-[77%] overflow-scroll overflow-x-hidden top-[5.8rem] left-5 ">
+        <div className="absolute max-h-96 w-[77%] z-50 overflow-scroll overflow-x-hidden top-[5.8rem] left-5 ">
           {v.map((movie, index) => {
             return (
               <div
                 key={index}
-                className="flex rounded-lg font-semibold hover:bg-[#F4A261] gap-3 text-[#F1F1F1] p-5 pl-3 duration-75"
+                className="flex rounded-lg bg-[#181818] font-semibold hover:bg-[#F4A261] gap-3 text-[#F1F1F1] p-5 pl-3 duration-75"
               >
-                  <img className="h-16 w-16 object-cover" src={movie.Poster} alt=""></img>
-                  <div className="pt-5 flex gap-y-16">
-               <h1 > {movie.Title}</h1> 
-               (<h1 >{movie.Year}</h1>)
-               </div>
+                <img
+                  className="h-16 w-16 object-cover"
+                  src={movie.Poster}
+                  alt=""
+                ></img>
+                <div className="pt-5 flex gap-y-16">
+                  <h1> {movie.Title}</h1>(<h1>{movie.Year}</h1>)
+                </div>
               </div>
             );
           })}

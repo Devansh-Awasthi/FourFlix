@@ -5,7 +5,7 @@ function Header() {
   const k = "95e6ba64";
   var [v, setv] = useState([]);
   var [index, setindex] = useState(1);
-  var [isHover, setHover] = useState(true);
+  var [isHover, setHover] = useState(false);
   var a;
 
   const clientId =
@@ -35,7 +35,7 @@ function Header() {
             `http://www.omdbapi.com/?i=${element}&apikey=${k}`
           );
           if (y.data) {
-            console.log(y.data);
+            // console.log(y.data);
             return y.data;
           } else {
             return null;
@@ -77,10 +77,10 @@ function Header() {
     return (index + v.length) % v.length;
   };
   return (
-    <div className="relative h-[100%] w-[100%] flex justify-center items-center">
+    <div className="relative h-[75%] w-[100%] flex ">
       {/* Gradient overlay */}
       <div
-        className="absolute rounded-xl top-[4.9rem] left-0 h-[81%] w-[92%]"
+        className="absolute rounded-xl top-[0.3rem] left-0 h-[93%] w-[92%]"
         style={{
           background:
             "linear-gradient(to right, rgba(0, 0, 0, 1), transparent, rgba(0, 0, 0, 1))",
@@ -90,19 +90,19 @@ function Header() {
       {v.length > 0 && (
         <>
           <img
-            className="mt-16 h-[65%] w-[60vw] size-fit rounded-xl"
+            className="mt-16 h-[75%] w-[60vw] size-fit rounded-xl"
             src={`${v[getCircularIndex(index - 1)].Poster}`}
           ></img>
 
-          <Link onMouseLeave={()=>{setHover(!isHover)}} onMouseEnter={()=>{setHover(!isHover)}} className="h-[80%] relative m-3 w-[80vw] overflow-hidden cursor-pointer z-[3]">
+          <Link onMouseLeave={()=>{setHover(false)}} onMouseEnter={()=>{setHover(true)}} className="h-[90%] relative m-3 w-[80vw] overflow-hidden cursor-pointer z-[3]">
             <img
               className="h-[35vw] w-full size-fit rounded-xl"
               src={`${v[index].Poster}`}
             ></img>
             <div>
-            <button className="absolute  bg-[#FF4500] bottom-10 rounded-xl px-3  text-[1.5rem] font-semibold text-white">
+            <h1 className="absolute bg-[#FF4500] bottom-10 rounded-xl px-3  text-[1.5rem] font-semibold text-white">
               {v[index].Title}
-            </button>
+            </h1>
            <h1 className="absolute top-6 ">
             {isHover &&
               v[index].Genre &&
@@ -131,10 +131,20 @@ function Header() {
               ))
             }
             </h1>
+            
+            <Link className="mr-4 mb-4 absolute w-fit top-40 right-1  z-20 px-3 rounded-xl bg-[#FF4500] text-[#F1F1F1] text-xl font-semibold"
+            style={{
+              animation: `slideIn 0.2s ease 0.4s forwards`,
+              opacity:0
+            }}>
+            <i className="ri-youtube-fill"></i>
+            Watch Trailer...
+            </Link>
+            
             </div>
           </Link>
           <img
-            className="mt-12 pr-32 h-[60%] w-[60vw] size-fit rounded-xl"
+            className="mt-12 pr-32 h-[75%] w-[60vw] size-fit rounded-xl"
             src={`${v[getCircularIndex(index + 1)].Poster}`}
           ></img>
         </>

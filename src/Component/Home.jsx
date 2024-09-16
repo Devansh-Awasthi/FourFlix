@@ -3,7 +3,7 @@ import LeftNav from '../Partials/LeftNav'
 import RestHome from '../Partials/RestHome'
 import TopNav from '../Partials/TopNav'
 import Header from '../Partials/Header'
-
+import Hcards from '../Partials/Hcards'
 function Home() {
     document.title='Movie App|Home'
   return (
@@ -13,6 +13,7 @@ function Home() {
        
       <TopNav></TopNav>
       <Header></Header>
+      <Hcards></Hcards>
       </div>
     </div>
   )
