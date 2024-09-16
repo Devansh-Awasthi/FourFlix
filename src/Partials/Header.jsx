@@ -33,7 +33,9 @@ function Header() {
               `http://www.omdbapi.com/?i=${element}&apikey=${k}`
             );
             if (y.data) {
+              console.log(y.data);
               return y.data; 
+
             }
              else {
               return null;
@@ -75,10 +77,10 @@ const getCircularIndex = (index) => {
   return (index + v.length) % v.length;
 };
   return (
-    <div className='relative pl-5 h-[100%] w-[100%] flex justify-center items-center'>
+    <div className='relative h-[100%] w-[100%] flex justify-center items-center'>
     {/* Gradient overlay */}
     <div 
-      className='absolute top-20 left-0 h-[81%] w-[95%]' 
+      className='absolute rounded-xl top-[4.9rem] left-0 h-[81%] w-[92%]' 
       style={{
         background: 'linear-gradient(to right, rgba(0, 0, 0, 1), transparent, rgba(0, 0, 0, 1))',
         zIndex: 1, // Ensures the gradient is on top of the images
@@ -87,9 +89,14 @@ const getCircularIndex = (index) => {
          {v.length > 0 &&
          <>
            <img className='mt-16 h-[65%] w-[60vw] size-fit rounded-xl' src={`${v[getCircularIndex(index - 1)].Poster}`}></img>
-           <img className='h-[80%] m-3 w-[80vw] size-fit rounded-xl' src={`${v[index].Poster}`}></img>
-           <img className='mt-16 pr-32 h-[60%] w-[60vw] size-fit rounded-xl' src={`${v[getCircularIndex(index + 1)].Poster}`}
-           ></img>
+           <div className='h-[80%] relative m-3 w-[80vw]'>
+           <img className='h-full w-full size-fit rounded-xl' src={`${v[index].Poster}`}>
+           </img>
+          <button className='absolute bottom-5 bg-[#FF4500] rounded-xl px-3 text-[1.5rem] font-semibold text-white'>{v[index].Title}</button></div>
+           <img className='mt-12 pr-32 h-[60%] w-[60vw] size-fit rounded-xl' src={`${v[getCircularIndex(index + 1)].Poster}`}
+           >
+           
+           </img>
            </>
          }
           </div>
