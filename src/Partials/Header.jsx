@@ -77,10 +77,10 @@ function Header() {
     return (index + v.length) % v.length;
   };
   return (
-    <div className="relative h-[75%] w-[100%] flex ">
+    <div className="relative  w-[80vw] flex ">
       {/* Gradient overlay */}
       <div
-        className="absolute rounded-xl top-[0.3rem] left-0 h-[93%] w-[92%]"
+        className="absolute rounded-xl top-[0.3rem] left-0 h-[72vh] w-[92%]"
         style={{
           background:
             "linear-gradient(to right, rgba(0, 0, 0, 1), transparent, rgba(0, 0, 0, 1))",
@@ -90,17 +90,17 @@ function Header() {
       {v.length > 0 && (
         <>
           <img
-            className="mt-16 h-[75%] w-[60vw] size-fit rounded-xl"
+            className="mt-24 h-[52vh] w-[60vw] rounded-xl"
             src={`${v[getCircularIndex(index - 1)].Poster}`}
           ></img>
 
           <Link onMouseLeave={()=>{setHover(false)}} onMouseEnter={()=>{setHover(true)}} className="h-[90%] relative m-3 w-[80vw] overflow-hidden cursor-pointer z-[3]">
             <img
-              className="h-[35vw] w-full size-fit rounded-xl"
+              className="h-[35vw] w-full rounded-xl"
               src={`${v[index].Poster}`}
             ></img>
             <div>
-            <h1 className="absolute bg-[#FF4500] bottom-10 rounded-xl px-3  text-[1.5rem] font-semibold text-white">
+            <h1 className="absolute bg-[#FF4500] bottom-20 rounded-xl px-3  text-[1.5rem] font-semibold text-white">
               {v[index].Title}
             </h1>
            <h1 className="absolute top-6 ">
@@ -117,7 +117,7 @@ function Header() {
               ))
             }
             </h1>
-            <h1 className="absolute top-20 ">
+            <h1 className="absolute top-28 ">
             {isHover &&
               v[index].Ratings &&
               v[index].Ratings.map((rating, idx) => (
@@ -132,7 +132,7 @@ function Header() {
             }
             </h1>
             
-            <Link className="mr-4 mb-4 absolute w-fit top-40 right-1  z-20 px-3 rounded-xl bg-[#FF4500] text-[#F1F1F1] text-xl font-semibold"
+            <Link className="mr-4 mb-4 absolute w-fit top-48 right-1  z-20 px-3 rounded-xl bg-[#FF4500] text-[#F1F1F1] text-xl font-semibold"
             style={{
               animation: `slideIn 0.2s ease 0.4s forwards`,
               opacity:0
@@ -144,7 +144,7 @@ function Header() {
             </div>
           </Link>
           <img
-            className="mt-12 pr-32 h-[75%] w-[60vw] size-fit rounded-xl"
+            className="mt-24 pr-32 h-[52vh] w-[60vw] size-fit rounded-xl"
             src={`${v[getCircularIndex(index + 1)].Poster}`}
           ></img>
         </>

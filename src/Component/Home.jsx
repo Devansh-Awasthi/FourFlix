@@ -7,9 +7,9 @@ import Hcards from '../Partials/Hcards'
 function Home() {
     document.title='Movie App|Home'
   return (
-    <div className='flex h-screen w-full'>
+    <div className='flex min-h-screen bg-[#181818] w-full'>
       <LeftNav></LeftNav>
-      <div className='w-[80%] h-full flex flex-col'>
+      <div className='w-[80%] h-fit flex flex-col'>
        
       <TopNav></TopNav>
       <Header></Header>
