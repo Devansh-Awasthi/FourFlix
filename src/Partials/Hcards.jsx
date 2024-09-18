@@ -1,20 +1,30 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Call from "../Utils/Call";
+import axios from "axios";
 function Hcards() {
+  const k = "95e6ba64";
+    const [trending, setTrending] = useState([]);
   useEffect(() => {
     const fetchTrending = async () => {
       try {
-        const traktMovie = await Call.get("/movies/trending");
-        const traktShow = await Call.get("/shows/trending");
+        var traktMovie = await Call.get("/movies/trending");
+        var traktShow = await Call.get("/shows/trending");
+          
         console.log(traktMovie.data);
         console.log(traktShow.data);
-        traktMovie.data.map((d,i)=>{
-            
-        })
+        traktMovie.data.map( async(i)=>{
+        try
+        { const omdbMovie = await axios.get(`http://www.omdbapi.com/?i=${i.movie.ids.imdb}&apikey=${k}`)
+        } 
+        catch(e) {
+            console.error(e);
+        }
+       });
       } catch (e) {
         console.error(e);
       }
     };
+
     fetchTrending();
   }, []);
 
