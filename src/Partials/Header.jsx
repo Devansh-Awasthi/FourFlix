@@ -107,7 +107,8 @@ function Header() {
             {isHover &&
               v[index].Genre &&
               v[index].Genre.split(',').map((genre, idx) => (
-                <span key={idx} className="mr-4 duration-100 px-3 rounded-xl  bg-[#FF4500] text-[#F1F1F1] text-xl font-semibold" style={{
+                <span key={idx} className="mr-4 duration-100 px-3 rounded-xl  bg-[#FF4500] text-[#F1F1F1] text-xl font-semibold"
+                style={{
                   animation: `slideIn 0.2s ease ${idx* 0.3 + v[index].Genre.split(',').length * 0.3}s forwards`,
                   opacity: 0
                 }}>
