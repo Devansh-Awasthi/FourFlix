@@ -80,16 +80,17 @@ function Hcards({trending,setFilter,button,setButton}) {
         <h1 className="text-[#F1F1F1] text-[4rem] font-bold">Trending</h1>
         <button
           onClick={() => setButton(!button)}
-          className="flex items-center bg-[#FF4500] pl-3 pr-3 rounded-2xl"
+          className="flex items-center  rounded-2xl"
         >
-          <i className="ri-filter-2-fill text-[1.8rem]"></i>
+          <i className="ri-filter-2-fill rounded-xl  bg-[#FF4500] pl-3 pr-3 text-[1.8rem]"></i>
+
           {button &&
             ["movies", "shows", "all"].map((a, i) => {
               return (
                 <h1
                   key={i}
                   onClick={()=> setFilter(a)}
-                  className="text-[1.3rem] pl-3 pr-3 border-white border-x-[1px] ml-2"
+                  className=" rounded-xl pt-1 pb-1 text-[1.6rem] bg-[#FF4500] pl-3 pr-3 border-x-[1px] ml-2"
                 >
                   {a}
                 </h1>

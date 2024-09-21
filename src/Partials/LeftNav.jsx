@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+// import Trending from '../Component/Trending'
 
 function LeftNav() {
   return (
@@ -11,7 +12,7 @@ function LeftNav() {
     <div className='new-feed flex text-[#F1F1F1] text- items-center m-8'>
     <h1 className='text-[1.3rem] font-bold'>New Feeds</h1></div>
     <div className='flex flex-col  text-[#F1F1F1] ml-10  text-[1rem]  font-semibold mr-5'>
-      <Link className='flex rounded-lg hover:bg-[#F4A261] gap-3 text-[#F1F1F1] p-6 pl-3'>
+      <Link to={'/trending'} className='flex rounded-lg hover:bg-[#F4A261] gap-3 text-[#F1F1F1] p-6 pl-3'>
       <i className="ri-meteor-fill"></i>
       Trending</Link>
       <Link className='flex rounded-lg hover:bg-[#F4A261] gap-3 text-[#F1F1F1] p-6 pl-3'>
