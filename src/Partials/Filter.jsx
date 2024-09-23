@@ -17,7 +17,7 @@ function Filter({ setButton, button, type, t, setFilter, filter, iag, arr, onCli
           <h1
             key={i}
             onClick={() => setFilter(a)}
-            className="rounded-xl pt-1 pb-1 text-[1.6rem] bg-[#FF4500] pl-3 pr-3 border-x-[1px] ml-2"
+            className="rounded-xl pt-1 pb-1 capitalize text-[1.6rem] bg-[#FF4500] pl-3 pr-3 ml-2"
           >
             {a}
           </h1>
