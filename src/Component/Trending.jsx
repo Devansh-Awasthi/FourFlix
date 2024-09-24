@@ -9,7 +9,7 @@ function Trending() {
   const [button, setButton] = useState(false);
   const [filter1, setFilter1] = useState("all");
   var [data, setData] = useState([]);
-  const k = "95e6ba64";
+  const ke = "95e6ba64";
   // const [filter2, setFilter2] = useState("day");
   const n = useNavigate();
   var a, w;
@@ -41,12 +41,17 @@ function Trending() {
         await Promise.all(
           k.map(async (i) => {
             if (i.movie) {
+              try{
               return await axios.get(
-                `https://api.themoviedb.org/3/movie/${i.movie.ids.imdb}?api_key=${k}`
-              );
+ `http://www.omdbapi.com/?i=${i.movie.ids.imdb}&apikey=${ke}`
+              );}
+              catch(e){
+                console.error(e);
+                return null;
+              }
             } else if (i.show) {
               return await axios.get(
-                `https://api.themoviedb.org/3/tv/${i.show.ids.imdb}?api_key=${k}`
+                `http://www.omdbapi.com/?i=${i.show.ids.imdb}&apikey=${ke}`
               );
             }
           })
@@ -65,7 +70,7 @@ function Trending() {
     setButton(false); // Close the button when changing type
   };
   return (
-    <div className="h-full w-screen text-[#F1F1F1] pl-8 pt-4">
+    <div className="min-h-screen w-screen text-[#F1F1F1] pl-8 pt-4">
       <div className="top w-screen flex items-center gap-16">
         <div className="top  flex items-center gap-6">
           <i
@@ -90,11 +95,17 @@ function Trending() {
           iag={"ri-movie-1-fill"}
           onClick={() => handleTypeChange("type")}
         ></Filter>
+        <div className="flex gap-12 max-h-fit bg-slate-900 w-screen overflow-auto flex-wrap">
         {
+          
           data.map((data, i) =>{
-            console.log(data);
+            return(
+           <div key={i} > <img src={`${data.data.Poster}`} className="h-[60vh] w-[22vw]" alt="a" />
+           <h1 className=""></h1>
+           </div>
+            );
           })
-        }
+        }</div>
       </div>
     </div>
   );
