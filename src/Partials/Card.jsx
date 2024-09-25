@@ -6,11 +6,11 @@ function Card({data,i}) {
               <div key={i}>
                 {" "}
                 <img
-                  src={`${data.data.Poster}`}
+                  src={`${data.Poster}`}
                   className="h-[60vh] w-[22vw]"
                   alt="a"
                 />
-                <h1 className="text-center">{data.data.Title}</h1>
+                <h1 className="text-center">{data.Title}</h1>
               </div>
   )
 }
