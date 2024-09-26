@@ -20,11 +20,11 @@ function Trending() {
 
   // Fetch trending data
   const fetchTrending = async () => {
-    try { 
+    try {
       setLoading(true);
       let moviesData = [];
       let showsData = [];
-      
+
       if (filter1 === "movies" || filter1 === "all") {
         const movieResponse = await Call.get("/movies/trending", {
           params: { limit: 20, page: page }, // Fetch movies for the current page
@@ -70,12 +70,13 @@ function Trending() {
       // setData((prevData) => [...prevData, ...validOmdbResults]);
       setData((prevData) => {
         const combined = [...prevData, ...validOmdbResults];
-      
+
         // Remove duplicates by imdbID
-        const uniqueData = combined.filter((item, index, self) =>
-          index === self.findIndex((t) => t.imdbID === item.imdbID)
+        const uniqueData = combined.filter(
+          (item, index, self) =>
+            index === self.findIndex((t) => t.imdbID === item.imdbID)
         );
-      
+
         return uniqueData;
       });
 
@@ -83,19 +84,20 @@ function Trending() {
       setPage((prevPage) => prevPage + 1);
     } catch (error) {
       console.error("Error fetching trending data:", error);
-    }
-    finally {
+    } finally {
       setLoading(false); // Stop loading
     }
   };
-
-  // Reset data and fetch new results when filter changes
+  const refresh = async () => {
+    await setData([]);
+    fetchTrending();
+  };
+  
   useEffect(() => {
-    // Reset data and page when filter changes
-    setData([]);
-    setPage(1);  // Ensure the page resets to 1 when the filter changes
-    setHasMore(true); // Reset infinite scroll state
-    fetchTrending(); // Fetch data for the current filter
+  
+    setPage(1);
+    refresh(); 
+    setHasMore(true);
   }, [filter1]);
 
   const handleTypeChange = (newType) => {
@@ -116,7 +118,6 @@ function Trending() {
         <TopNav />
       </div>
       <div className="flex flex-col gap-6">
-
         <Filter
           setButton={() => setButton(!button)}
           type={type}
@@ -129,8 +130,7 @@ function Trending() {
           onClick={() => handleTypeChange("type")}
         />
         {loading && <h4>Loading...</h4>} {/* Loading indicator */}
-         {/* Error message */}
-
+        {/* Error message */}
         {!loading && data.length === 0 && (
           <h4>No trending data available</h4> // Display when no data is available
         )}
