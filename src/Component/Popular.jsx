@@ -22,13 +22,12 @@ function Popular() {
       const pop = await Call.get("/movies/popular", {
         params: { limit: 20, page: page },
       });
-      console.log(pop.data);
        a = await Promise.all(
         pop.data.map(async (i) => {
           const response = await axios.get(
             `http://www.omdbapi.com/?i=${i.ids.imdb}&apikey=${OMDB_API_KEY}`
           );
-          // console.log(response);
+          console.log(response);
           return response.data;
         })
       );
@@ -59,7 +58,13 @@ function Popular() {
         if (a.length === 0) {
           setHasMore(false); // Stop infinite scroll if no more results
         } else {
+          // let b =a.filter(
+          //   (item, index, self) =>
+          //     index === self.findIndex((t) => t.imdbID === item.imdbID)
+          // );
+          
           setFinal((prev) => [...prev, ...a]);
+          // console.log(final)
           setPage((prev) => prev + 1); // Increment page for next call
         }
        

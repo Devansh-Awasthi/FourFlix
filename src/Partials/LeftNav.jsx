@@ -17,7 +17,7 @@ function LeftNav() {
       Trending</Link>
       <Link to={'/popular'} className='flex rounded-lg hover:bg-[#F4A261] gap-3 text-[#F1F1F1] p-6 pl-3'>
       <i className="ri-sparkling-2-fill"></i>Popular</Link>
-      <Link className='flex rounded-lg hover:bg-[#F4A261] gap-3 text-[#F1F1F1] p-6 pl-3'>
+      <Link to={'/movies'} className='flex rounded-lg hover:bg-[#F4A261] gap-3 text-[#F1F1F1] p-6 pl-3'>
       <i className="ri-movie-fill"></i>Movies</Link>
       <Link className='flex rounded-lg hover:bg-[#F4A261] gap-3 text-[#F1F1F1] p-6 pl-3'>
       <i className="ri-tv-fill"></i>TV Show</Link>
