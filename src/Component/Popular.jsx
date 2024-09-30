@@ -10,11 +10,13 @@ import InfiniteScroll from "react-infinite-scroll-component";
 function Popular() {
   document.title = "Movie App|Popular";
   const n = useNavigate();
-  const OMDB_API_KEY = "95e6ba64";
+  const OMDB_API_KEY = "135eb90e";
+  // const OMDB_API_KEY ="95e6ba64";
   const [final, setFinal] = useState([]);
   const [page, setPage] = useState(1);
   const [type, setType] = useState('movies');
   const [hasMore, setHasMore] = useState(true);var a;
+
   function debounce(func, wait) {
     let timeout;
     return function (...args) {
@@ -24,9 +26,10 @@ function Popular() {
     };
   }
   const popular = async (page) => {
+    var pop =[];
     if(type==='movies') {
     try {
-      const pop = await Call.get("/movies/popular", {
+      pop = await Call.get("/movies/popular", {
         params: { limit: 20, page: page },
       });
       console.log(pop);
@@ -44,7 +47,7 @@ function Popular() {
     }}
     else{
       try {
-        const pop = await Call.get("/shows/popular", {
+      pop = await Call.get("/shows/popular", {
           params: { limit: 20, page: page },
         });
         console.log(pop.data);
@@ -85,7 +88,6 @@ function Popular() {
   }, [type]);
   
   useEffect(() => {
-    // Fetch data whenever page or type changes, but only when page > 0
     if (page > 0) {
       debouncedPopular(page);
     }
