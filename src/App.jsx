@@ -6,6 +6,7 @@ import Home from './Component/Home'
 import Trending from './Component/Trending'
 import Popular from './Component/Popular'
 import Movies from './Component/Movies'
+import Show from './Component/Show'
 function App() {
   return (
     <div className='bg-[#181818] h-screen w-full'>
@@ -14,6 +15,7 @@ function App() {
         <Route path='/trending' element={<Trending/>}></Route>
         <Route path='/popular' element={<Popular/>}></Route>
         <Route path='/movies' element={<Movies/>}></Route>
+        <Route path='/show' element={<Show/>}></Route>
       </Routes>
 
 
