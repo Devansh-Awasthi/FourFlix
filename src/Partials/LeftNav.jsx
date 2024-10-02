@@ -21,8 +21,8 @@ function LeftNav() {
       <i className="ri-movie-fill"></i>Movies</Link>
       <Link to={'/show'} className='flex rounded-lg hover:bg-[#F4A261] gap-3 text-[#F1F1F1] p-6 pl-3'>
       <i className="ri-tv-fill"></i>TV Show</Link>
-      <Link className='flex rounded-lg hover:bg-[#F4A261] gap-3 text-[#F1F1F1] p-6 pl-3 '>
-      <i className="ri-team-fill"></i>Community</Link>
+      <Link to={'/people'} className='flex rounded-lg hover:bg-[#F4A261] gap-3 text-[#F1F1F1] p-6 pl-3 '>
+      <i className="ri-team-fill"></i>People</Link>
     </div>
     <div className=' mt-2'></div>
     <div className='new-feed flex text-[#F1F1F1] text- items-center m-8'>
