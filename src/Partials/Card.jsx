@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 function Card({data,i}) {
   return (
+    (data != undefined &&
         <Link>
               <div key={i}>
                 
@@ -14,6 +15,7 @@ function Card({data,i}) {
                 <h1 className="text-center font-semibold text-wrap text-lg">{data.Title}</h1>
               </div></Link>
   )
+)
 }
 
 export default Card

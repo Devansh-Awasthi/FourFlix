@@ -11,7 +11,7 @@ import Card from "../Partials/Card";
 
 function Show() {
   const [final, setFinal] = useState([]);
-  const [type, setType] = useState("Top-100");
+  const [type, setType] = useState("trending");
   //  const OMDB_API_KEY ="95e6ba64";
   const [page, setPage] = useState(1);
   const n = useNavigate();
@@ -22,8 +22,9 @@ function Show() {
       const response = await axios.get(
         `http://www.omdbapi.com/?i=${id}&apikey=${OMDB_API_KEY}`
       );
+      if(response != null) {
       return response.data;
-    } catch (e) {
+    } }catch (e) {
       console.error(e);
     }
   };
@@ -45,15 +46,17 @@ function Show() {
         params: { limit: 20, page: page }, // upcoming
         // params: { limit: 20 }, // upcoming
       }); //upcoming
-      console.log(response1);
+      // console.log(response1);
       f = await Promise.all(
         response1.data.map(async (info) => {
           const res = await OmdbCall(info.show.ids.imdb);
           return res;
         })
       );
-      console.log(f);
-      setFinal((p) => [...p, ...f]);
+      const res2=f.filter(Boolean);
+      // console.log(f);
+      console.log(res2);
+      setFinal((p) => [...p, ...res2]);
     } else if (type === "trending") {
       var f = [];
       const response2 = await Call.get("/shows/trending", {
@@ -67,9 +70,10 @@ function Show() {
           return res;
         })
       );
+      const res2=f.filter(Boolean);
       // console.log(f);
-      console.log(f);
-      setFinal((p) => [...p, ...f]);
+      console.log(res2);
+      setFinal((p) => [...p, ...res2]);
     } else if (type === "popular") {
       var f = [];
       const response = await Call.get("/shows/popular", {
@@ -83,8 +87,10 @@ function Show() {
           return res;
         })
       );
-      console.log(f);
-      setFinal((p) => [...p, ...f]);
+      const res2=f.filter(Boolean);
+      // console.log(f);
+      console.log(res2);
+      setFinal((p) => [...p, ...res2]);
       //    const response1 = await Call.get('/movies/popular');//popular
     }
 
