@@ -11,7 +11,7 @@ import Card from "../Partials/Card";
 
 function Movies() {
   const [final, setFinal] = useState([]);
-  const [type, setType] = useState("Top-100");
+  const [type, setType] = useState("trending");
   //  const OMDB_API_KEY ="95e6ba64";
   const [page, setPage] = useState(1);
   const n = useNavigate();

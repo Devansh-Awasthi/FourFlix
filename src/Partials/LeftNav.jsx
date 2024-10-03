@@ -28,7 +28,7 @@ function LeftNav() {
     <div className='new-feed flex text-[#F1F1F1] text- items-center m-8'>
     <h1 className='text-[1.3rem] font-bold'>Website Information</h1></div>
     <div className='flex flex-col  text-[#F1F1F1] ml-10  text-[1rem] font-semibold mr-5'>
-      <Link className='flex rounded-lg hover:bg-[#F4A261] gap-3 text-[#F1F1F1] p-6 pl-3'>
+      <Link to={'/details'} className='flex rounded-lg hover:bg-[#F4A261] gap-3 text-[#F1F1F1] p-6 pl-3'>
       <i className="ri-information-2-fill"></i>
       About</Link>
       <Link className='flex rounded-lg hover:bg-[#F4A261] gap-3 text-[#F1F1F1] p-6 pl-3'>
