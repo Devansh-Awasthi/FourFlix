@@ -71,15 +71,17 @@ function Details() {
         <p >{res.Plot}</p>
        </div>
     </div>
-    <div className='absolute bottom-[-25%] w-full h-fit flex'>
+    <div className='absolute bottom-[-25%] p-8 w-[98%] mt-8 h-fit flex items-center  justify-between'>
         {res.Actors.split(',').map((item,k)=>{
-
         return <div key={k} className='image'>
+            <img className='h-[18vh] w-[10vw]' src="/example.com/item" alt={`${item}`} />
             <h1>{item}</h1>
         </div>
         })
     }</div>
-    
+    <div className='w-[96%] border-[1px] border-[#FF4500] absolute bottom-[-30%]'>
+        <h1 className='font-semibold  text-[1vw] '>Awards & Nominations: {res.Awards}</h1>
+    </div>
   
   </div>  
   )
