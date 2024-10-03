@@ -1,4 +1,8 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useEffect } from 'react'
+import Call from '../Utils/Call'
+import getRecomendation from '../Utils/getRecomendation'
+import { Link } from 'react-router-dom'
 
 function Details() {
     
@@ -45,8 +49,15 @@ function Details() {
         "Website": "N/A",
         "Response": "True"
     }
-  
-
+ const data =async()=>{
+   var pop = await Call.get("/search/imdb/tt0111161");
+     console.log(pop.data[0].movie.ids.tmdb);
+     var res=await getRecomendation({params:{ids:pop.data[0].movie.ids.tmdb}});
+     console.log(res);
+ }
+useEffect(()=>{
+    data();
+})
   return (
   <div className="min-h-screen overflow-x-hidden relative bg-[#181818] w-screen text-[#F1F1F1] p-8 pt-4">
     <div className='trailer-box w-full h-96 bg-slate-300'></div>
@@ -79,9 +90,47 @@ function Details() {
         </div>
         })
     }</div>
-    <div className='w-[96%] border-[1px] border-[#FF4500] absolute bottom-[-30%]'>
-        <h1 className='font-semibold  text-[1vw] '>Awards & Nominations: {res.Awards}</h1>
+    <div className='w-[96%] border-t-2 border-[#FF4500]  absolute bottom-[-35%]'>
+        <h1 className='font-semibold  text-[1.9vw] '>Awards & Nominations: {res.Awards}</h1>
     </div>
+     <div className='w-[96%]   border-t-2 border-[#FF4500] absolute bottom-[-51%]'>
+        <h1 className='font-semibold  text-[1.2vw] '>Created By: {res.Director}</h1>
+        <h1 className='font-semibold  text-[1.2vw] '>
+            Written By: {res.Writer}
+        </h1>
+        <h1 className='font-semibold  text-[1.2vw] '>Languages:{res.Language} </h1>
+        <h1 className='font-semibold  text-[1.2vw] '>Country: {res.Country}</h1>
+    </div>
+     <div className='w-[96%] border-t-2 border-[#FF4500] absolute bottom-[-59%]'>
+     <div className=" overflow-x-auto w-full">
+        <div className="bg-transparent p-3  h-[60vh] flex flex-nowrap w-max items-center">
+          {trending.length > 0 &&
+            trending.map((item, index) => {
+              return (
+                <div
+                  key={index}
+                  className="bg-[#181818]  flex-col rounded-xl ml-5 h-[78%] w-[16vw] "
+                >
+                  <img
+                    src={item.Poster}
+                    className="h-[70%] rounded-xl w-full object-center "
+                  ></img>
+                  <h1 className="text-[#F1F1F1] text-[2rem] ml-2 text-nowrap overflow-hidden font-bold">
+                    {item.Title}
+                  </h1>
+                  <span>
+                    {" "}
+                    <p className="ml-4">
+                      {item.Plot.slice(0, 85)}
+                      <Link className="text-[#FF8C00]">...Read more</Link>
+                    </p>
+                  </span>
+                </div>
+              );
+            })}
+        </div>
+      </div>
+     </div>
   
   </div>  
   )
