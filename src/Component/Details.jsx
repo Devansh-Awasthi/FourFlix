@@ -2,11 +2,13 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Call from "../Utils/Call";
 import getRecomendation from "../Utils/getRecomendation";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import Services from "../Utils/Services";
 
 function Details() {
   const OMDB_API_KEY = "135eb90e";
 
+const [just, setjust] = useState(null) 
   const obj = useParams();
   // console.log(obj.id);
   const [details, setDetails] = useState(null);
@@ -38,6 +40,7 @@ function Details() {
       console.log(res.data);
       const type = res.Type === 'movie'?'shows':'movies';
       const id= res.imdbID;
+
       var pop = await Call.get(`/${type}/${id}/related`);
       console.log(pop);
       const f = await Promise.all(
@@ -45,7 +48,9 @@ function Details() {
           return await OmdbCall(item.ids.imdb);
         })
       );
-
+      const ava= await Services.get(`${obj.id}`);
+      setjust(ava.data);
+      console.log(ava.data);
       console.log(f);
       setTrending(f);
     }
@@ -56,7 +61,9 @@ function Details() {
   return (
     details && (
       <div className="min-h-screen overflow-x-hidden relative bg-[#181818] w-screen text-[#F1F1F1] p-8 pt-4">
-        <div className="trailer-box w-full h-96 bg-slate-300"></div>
+        <div className="trailer-box w-full h-96 bg-slate-300 ">
+        {just&&(  <img className=" w-full h-full object-center" src={`${just.imageSet.horizontalPoster.w1080}`} alt="a" />)}
+        </div>
 
         <img
           src={`${details.Poster}`}
@@ -86,25 +93,55 @@ function Details() {
           </div>
         </div>
         <div className="absolute bottom-[-25%] p-8 w-[98%] mt-8 h-fit flex items-center  justify-between">
-          {details.Actors.split(",").map((item, k) => {
+
+          {just ?
+          (just.cast.map((item, k) => {
             return (
-              <div key={k} className="image">
+              <div key={k} className="image overflow-x-autow-full ">
                 <img
-                  className="h-[18vh] w-[10vw]"
+                  className="h-[18vh] bg-slate-400 rounded-lg w-[10vw]"
                   src="/example.com/item"
                   alt={`${item}`}
                 />
                 <h1>{item}</h1>
               </div>
             );
-          })}
+          })):(details.Actors.split(',').map((item, k) => {
+            return (
+              <div key={k} className="image overflow-x-autow-full ">
+                <img
+                  className="h-[18vh] bg-slate-400 rounded-lg w-[10vw]"
+                  src="/example.com/item"
+                  alt={`${item}`}
+                />
+                <h1>{item}</h1>
+              </div>
+            );
+          }))}
         </div>
         <div className="w-[96%] border-t-2 border-[#FF4500]  absolute bottom-[-35%]">
           <h1 className="font-semibold  text-[1.9vw] ">
             Awards & Nominations: {details.Awards}
           </h1>
         </div>
-        <div className="w-[96%]   border-t-2 border-[#FF4500] absolute bottom-[-51%]">
+        <div className="w-[96%] mt-3 border-t-2 border-[#FF4500] flex items-center gap-8  absolute bottom-[-46%]">
+          <h1 className="font-semibold  text-[1.9vw] ">
+            Available On:
+          </h1>
+           {just && just.streamingOptions.length>0 &&
+           just.streamingOptions.in.map((item , k)=>{
+              return(
+                
+                  <Link to={item.link} key={k} className="bg-[#FF4500] mx-5 my-2 px-4 flex items-center gap-8 ">
+                  <img className="h-20 w-28" src={`${item.service.imageSet.whiteImage}`} /></Link>
+             
+              )
+           })
+
+           }
+        
+        </div>
+        <div className="w-[96%]   border-t-2 border-[#FF4500] absolute bottom-[-61%]">
           <h1 className="font-semibold  text-[1.2vw] ">
             Created By: {details.Director}
           </h1>
@@ -118,19 +155,20 @@ function Details() {
             Country: {details.Country}
           </h1>
         </div>
-        <div className="w-[96%] border-t-2 border-[#FF4500] absolute bottom-[-53%]">
+        <div className="w-[96%] border-t-2 border-[#FF4500] absolute bottom-[-63%]">
           <div className=" overflow-x-auto absolute w-full">
             <h1 className="font-semibold  text-[1.9vw] ">Recomended</h1>
             <div className="bg-transparent p-3  h-[50vh] flex gap-4 flex-nowrap w-max items-center">
               {trending.map((item, index) => {
                 return (
-                  <div key={index}>
+                  <Link key={index}  to={`/details/${item.data.imdbID}`} >
+                  <div >
                     <img
                       className="h-80 w-60"
                       src={`${item.data.Poster}`}
                     ></img>
                     <h1 className="text-center"> {item.data.Title}</h1>
-                  </div>
+                  </div></Link>
                 );
               })}
             </div>

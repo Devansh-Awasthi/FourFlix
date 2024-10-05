@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import TopNav from "../Partials/TopNav";
 import Call from "../Utils/Call";
@@ -8,96 +8,74 @@ import InfiniteScroll from "react-infinite-scroll-component";
 // import Filter from "../Partials/Filter";
 
 function Popular() {
-  document.title = "Movie App|Popular";
+  
+  const [final, setFinal] = useState([]);
+  const [type, setType] = useState("movies");
+  //  const OMDB_API_KEY ="95e6ba64";
+  document.title = `Movie App|Popular|${type}`; 
+  const [page, setPage] = useState(1);
   const n = useNavigate();
   const OMDB_API_KEY = "135eb90e";
-  // const OMDB_API_KEY ="95e6ba64";
-  const [final, setFinal] = useState([]);
-  const [page, setPage] = useState(1);
-  const [type, setType] = useState('movies');
-  const [hasMore, setHasMore] = useState(true);var a;
-
-  function debounce(func, wait) {
-    let timeout;
-    return function (...args) {
-      const context = this;
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func.apply(context, args), wait);
-    };
-  }
-  const popular = async (page) => {
-    var pop =[];
-    if(type==='movies') {
+  // var type = "upcoming";
+  const OmdbCall = async (id) => {
     try {
-      pop = await Call.get("/movies/popular", {
+      const response = await axios.get(
+        `http://www.omdbapi.com/?i=${id}&apikey=${OMDB_API_KEY}`
+      );
+      if(response != null) {
+      return response.data;
+    } }catch (e) {
+      console.error(e);
+    }
+  };
+  const movies = async () => {
+    if (type === "movies") {
+      var f = [];
+      const response1 = await Call.get("/movies/popular", {
         params: { limit: 20, page: page },
-      });
-      console.log(pop);
-       a = await Promise.all(
-        pop.data.map(async (i) => {
-          const response = await axios.get(
-            `http://www.omdbapi.com/?i=${i.ids.imdb}&apikey=${OMDB_API_KEY}`
-          );
-          console.log(response);
-          return response.data;
+      }); //upcoming
+      console.log(response1);
+      f = await Promise.all(
+        response1.data.map(async (info) => {
+          const res = await OmdbCall(info.ids.imdb);
+          return res;
         })
       );
-    } catch (e) {
-      console.error(e);
-    }}
-    else{
-      try {
-      pop = await Call.get("/shows/popular", {
-          params: { limit: 20, page: page },
-        });
-        console.log(pop.data);
-         a = await Promise.all(
-          pop.data.map(async (i) => {
-            const response = await axios.get(
-              `http://www.omdbapi.com/?i=${i.ids.imdb}&apikey=${OMDB_API_KEY}`
-            );
-            // console.log(response);
-            return response.data;
-          })
-        );
-      }
-      catch (e) {
-        console.error(e);
-      
-    }
-  }
-        if (a.length === 0) {
-          setHasMore(false); // Stop infinite scroll if no more results
-        } else {
-          // let b =a.filter(
-          //   (item, index, self) =>
-          //     index === self.findIndex((t) => t.imdbID === item.imdbID)
-          // );
-          
-          setFinal((prev) => [...prev, ...a]);
-          // console.log(final)
-          // setPage((prev) => prev + 1); // Increment page for next call
-        }
-       
+      const res2=f.filter(Boolean);
+      // console.log(f);
+      console.log(res2);
+      setFinal((p) => [...p, ...res2]);
+    } else  {
+      var f = [];
+      const response2 = await Call.get("/shows/trending", {
+        params: { limit: 20, page: page }, // upcoming
+        // params: { limit: 20 }, // upcoming
+      });
+      console.log(response2);
+      f = await Promise.all(
+        response2.data.map(async (info) => {
+          const res = await OmdbCall(info.show.ids.imdb);
+          return res;
+        })
+      );
+      const res2=f.filter(Boolean);
+      // console.log(f);
+      console.log(res2);
+      setFinal((p) => [...p, ...res2]);
+    } 
+
+    // console.log("upcoming",response1);
+    // const res= await Toprated.get();        // toprated
+    // console.log(response1);
   };
-  const debouncedPopular = useCallback(debounce(popular, 1500), [type]);
   useEffect(() => {
-    setPage(1); // Reset page to 1 when type changes
-    setFinal([]); // Clear the existing data
-    setHasMore(true); // Reset hasMore to allow infinite scrolling for the new type
+    movies(); // Call the function on component mount
+  }, [page]);
+  useEffect(() => {
+    setFinal([]);
+    setPage(1);
+    movies();
   }, [type]);
-  
-  useEffect(() => {
-    if (page > 1) {
-      debouncedPopular(page);
-    }
-  }, [page, debouncedPopular]);
-  const loadMoreData = () => {
-    if (hasMore) {
-      setPage((prevPage) => prevPage + 1); // Increment page count
-      // debouncedPopular(page + 1); // Load the next page
-    }
-  };
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#181818] w-screen text-[#F1F1F1] pl-8 pt-4">
       <div className="top w-screen flex items-center gap-16">
@@ -130,13 +108,15 @@ function Popular() {
     </button>
       <InfiniteScroll
         dataLength={final.length}
-        hasMore={hasMore}
-        next={loadMoreData} 
+        hasMore={true}
+        next={() => setPage((page) => page + 1)}
       >
         <div className="flex gap-12 mt-7 max-h-fit w-screen overflow-auto flex-wrap">
-          {final.map((item, i) => (
-            <Card data={item} key={i} />
-          ))}
+          {final.map((item, i) => {
+            // console.log(`Selected show ID:${item.imdbID}`);
+            return(        
+           <Card data={item} key={i} />
+          )})}
         </div>
       </InfiniteScroll>
     </div>
