@@ -94,7 +94,8 @@ function Header() {
             src={`${v[getCircularIndex(index - 1)].Poster}`}
           ></img>
 
-          <Link onMouseLeave={()=>{setHover(false)}} onMouseEnter={()=>{setHover(true)}} className="h-[90%] relative m-3 w-[80vw] overflow-hidden cursor-pointer z-[3]">
+          <Link  to={`/details/${v[index].imdbID}`} 
+              onClick={()=>console.log(v[index].imdbID)} onMouseLeave={()=>{setHover(false)}} onMouseEnter={()=>{setHover(true)}} className="h-[90%] relative m-3 w-[80vw] overflow-hidden cursor-pointer z-[3]">
             <img
               className="h-[35vw] w-full rounded-xl"
               src={`${v[index].Poster}`}
@@ -132,14 +133,14 @@ function Header() {
             }
             </h1>
             
-            <Link className="mr-4 mb-4 absolute w-fit top-48 right-1  z-20 px-3 rounded-xl bg-[#FF4500] text-[#F1F1F1] text-xl font-semibold"
+            <div  className="mr-4 mb-4 absolute w-fit top-48 right-1  z-20 px-3 rounded-xl bg-[#FF4500] text-[#F1F1F1] text-xl font-semibold"
             style={{
               animation: `slideIn 0.2s ease 0.4s forwards`,
               opacity:0
             }}>
             <i className="ri-youtube-fill"></i>
             Watch Trailer...
-            </Link>
+            </div>
             
             </div>
           </Link>

@@ -33,28 +33,35 @@ function TopNav() {
         className="w-[80%] h-[3rem] bg-transparent text-[#F1F1F1] rounded-lg border-[#F1F1F1] border-[1px] p-4"
         onChange={(e) => SetIn(e.target.value)}
         type="text"
-        onFocus={() => setIsActive(true)}
-        onBlur={() => setIsActive(false)}
+        onFocus={() => setIsActive((prev)=>!prev)}
+        // onBlur={() => setIsActive(false)}
         placeholder="Search Movies, TV Shows, or People"
       ></input>
-      <i className="ri-search-2-line text-[2rem] ml-5  flex items-center justify-center h-[3.5rem] w-[3.5rem] rounded-full bg-[#FF4500] text-[#F1F1F1] "></i>
+      <i className="ri-search-2-line text-[2rem] ml-5  flex items-center justify-center h-[3.5rem] w-[3.5rem] rounded-full bg-[#FF4500] text-[#F1F1F1]" ></i>
       {isActive && In && (
         <div className="absolute max-h-96 w-[77%] z-50 overflow-scroll overflow-x-hidden top-[5.8rem] left-5 ">
-          {v.map((movie, index) => {
+          {v.map((data, index) => {
+        //  console.log(data.imdbID);
             return (
+              <Link key={index}
+              to={`/details/${data.imdbID}`} 
+              onClick={()=>console.log(data.imdbID)}
+          
+              >
               <div
-                key={index}
                 className="flex rounded-lg bg-[#181818] font-semibold hover:bg-[#F4A261] gap-3 text-[#F1F1F1] p-5 pl-3 duration-75"
+               
               >
                 <img
                   className="h-16 w-16 object-cover"
-                  src={movie.Poster}
+                  src={data.Poster}
                   alt=""
                 ></img>
                 <div className="pt-5 flex gap-y-16">
-                  <h1> {movie.Title}</h1>(<h1>{movie.Year}</h1>)
+                  <h1> {data.Title}</h1>(<h1>{data.Year}</h1>)
                 </div>
               </div>
+              </Link>
             );
           })}
         </div>
