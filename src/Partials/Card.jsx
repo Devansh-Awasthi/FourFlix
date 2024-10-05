@@ -1,22 +1,25 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
-function Card({data,i}) {
-  const [hover,setHover]=useState(false)
+function Card({ data, i }) {
+  const [hover, setHover] = useState(false);
   return (
-    (data != undefined &&
-        <Link  onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)}>
-              <div className='relative' key={i}>
-                
-                <img
-                  src={`${data.Poster}`}
-                  className="h-[60vh] w-[22vw]"
-                  alt="a"
-                />
-                <h1 className="text-center font-semibold text-wrap text-lg">{data.Title}</h1>
-                <div className='box top-11 flex absolute flex-col'
-                >
-                  {hover &&
+    data && (
+      <Link
+        to={{
+          pathname: `/details/${data.imdbID}`,
+        }}
+        key={i}
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+      >
+        <div className="relative">
+          <img src={`${data.Poster}`} className="h-[60vh] w-[22vw]" alt="a" />
+          <h1 className="text-center font-semibold text-wrap text-lg">
+            {data.Title}
+          </h1>
+          <div className="box top-11 flex absolute flex-col">
+            {hover &&
               data.Ratings.map((item, index) => {
                 return (
                   <div
@@ -31,11 +34,11 @@ function Card({data,i}) {
                   </div>
                 );
               })}
-                </div>
-              </div>
-              </Link>
-  )
-)
+          </div>
+        </div>
+      </Link>
+    )
+  );
 }
 
-export default Card
+export default Card;

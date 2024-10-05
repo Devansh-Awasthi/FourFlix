@@ -1,7 +1,7 @@
-import { useState } from 'react'
+
 
 import './App.css'
-import { Route, Router, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './Component/Home'
 import Trending from './Component/Trending'
 import Popular from './Component/Popular'
@@ -19,7 +19,7 @@ function App() {
         <Route path='/movies' element={<Movies/>}></Route>
         <Route path='/show' element={<Show/>}></Route>
         <Route path='/people' element={<People/>}></Route>
-        <Route path='/details' element={<Details/>}></Route>
+        <Route path='/details/:id' element={<Details />}></Route>
       </Routes>
 
 

@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import ImdbMovies from "../Utils/ImdbMovies";
 import TopNav from "../Partials/TopNav";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Call from "../Utils/Call";
 import Toprated from "../Utils/Toprated";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -140,9 +140,11 @@ function Show() {
         next={() => setPage((page) => page + 1)}
       >
         <div className="flex gap-12 mt-7 max-h-fit w-screen overflow-auto flex-wrap">
-          {final.map((item, i) => (
-            <Card data={item} key={i} />
-          ))}
+          {final.map((item, i) => {
+            // console.log(`Selected show ID:${item.imdbID}`);
+            return(        
+           <Card data={item} key={i} />
+          )})}
         </div>
       </InfiniteScroll>
     </div>
