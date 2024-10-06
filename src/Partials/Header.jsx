@@ -138,8 +138,7 @@ function Header() {
               animation: `slideIn 0.2s ease 0.4s forwards`,
               opacity:0
             }}>
-            <i className="ri-youtube-fill"></i>
-            Watch Trailer...
+         
             </div>
             
             </div>

@@ -9,7 +9,8 @@ function People() {
     const n = useNavigate();
     const celebs =async()=> {
        const res= await GetCelebs.get();
-    
+
+  
     // console.log(res.data.celebs);
     setFinal(res.data.celebs)
 }
@@ -33,7 +34,12 @@ function People() {
       </div>
       <div className="flex gap-12 mt-7 max-h-fit w-screen overflow-auto flex-wrap">
           {Final.map((item, i) => (
-             <Link key={i}>
+             <Link key={i} 
+             to={{
+              pathname:`/celebDetail`, // Assume you have a route like /celeb/:id
+            }}
+            state={{ item }}
+             >
              <div className='relative'>
                
                <img
