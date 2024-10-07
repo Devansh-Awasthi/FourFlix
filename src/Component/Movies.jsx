@@ -37,7 +37,7 @@ function Movies() {
           return b;
         })
       );
-      console.log(f);
+      // console.log(f);
       setFinal((p) => [...p, ...f]);
     } else if (type === "upcoming") {
       var f = [];
@@ -45,14 +45,14 @@ function Movies() {
         params: { limit: 20, page: page }, // upcoming
         // params: { limit: 20 }, // upcoming
       }); //upcoming
-      console.log(response1);
+      // console.log(response1);
       f = await Promise.all(
         response1.data.map(async (info) => {
           const res = await OmdbCall(info.movie.ids.imdb);
           return res;
         })
       );
-      console.log(f);
+      // console.log(f);
       setFinal((p) => [...p, ...f]);
     } else if (type === "trending") {
       var f = [];
@@ -60,7 +60,7 @@ function Movies() {
         params: { limit: 20, page: page }, // upcoming
         // params: { limit: 20 }, // upcoming
       });
-      console.log(response2);
+      // console.log(response2);
       f = await Promise.all(
         response2.data.map(async (info) => {
           const res = await OmdbCall(info.movie.ids.imdb);
@@ -68,7 +68,7 @@ function Movies() {
         })
       );
       // console.log(f);
-      console.log(f);
+      // console.log(f);
       setFinal((p) => [...p, ...f]);
     } else if (type === "popular") {
       var f = [];
@@ -76,14 +76,14 @@ function Movies() {
         params: { limit: 20, page: page }, // upcoming
         // params: { limit: 20 }, // upcoming
       });
-      console.log(response);
+      // console.log(response);
       f = await Promise.all(
         response.data.map(async (info) => {
           const res = await OmdbCall(info.ids.imdb);
           return res;
         })
       );
-      console.log(f);
+      // console.log(f);
       setFinal((p) => [...p, ...f]);
       //    const response1 = await Call.get('/movies/popular');//popular
     }
@@ -94,14 +94,14 @@ function Movies() {
   };
   useEffect(() => {
     movies(); // Call the function on component mount
-  }, [page]);
+  }, [page,type]);
   useEffect(() => {
     setFinal([]);
     setPage(1);
-    movies();
+    // movies();
   }, [type]);
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#181818] w-screen text-[#F1F1F1] pl-8 pt-4">
+    <div className="min-h-screen relative overflow-x-hidden bg-[#181818] w-screen text-[#F1F1F1] pl-8 pt-4">
       <div className="top w-screen flex items-center gap-16">
         <div className="top flex items-center gap-6">
           <i
@@ -140,6 +140,9 @@ function Movies() {
           ))}
         </div>
       </InfiniteScroll>
+      <button  onClick={()=>{window.scrollTo({ top: 0, behavior: 'smooth' })}} className="bg-[#FF4500] px-3 py-1 absolute right-8 rounded-full bottom-16">
+      <i className="ri-arrow-up-fill h-20 w-20 "></i>
+      </button>
     </div>
   );
 }

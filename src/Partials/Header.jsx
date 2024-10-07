@@ -41,7 +41,7 @@ function Header() {
             return null;
           }
         } catch (error) {
-          console.log(error);
+          // console.log(error);
         }
       });
     }
@@ -95,7 +95,7 @@ function Header() {
           ></img>
 
           <Link  to={`/details/${v[index].imdbID}`} 
-              onClick={()=>console.log(v[index].imdbID)} onMouseLeave={()=>{setHover(false)}} onMouseEnter={()=>{setHover(true)}} className="h-[90%] relative m-3 w-[80vw] overflow-hidden cursor-pointer z-[3]">
+              onMouseLeave={()=>{setHover(false)}} onMouseEnter={()=>{setHover(true)}} className="h-[90%] relative m-3 w-[80vw] overflow-hidden cursor-pointer z-[3]">
             <img
               className="h-[35vw] w-full rounded-xl"
               src={`${v[index].Poster}`}

@@ -12,10 +12,10 @@ import Card from "../Partials/Card";
 function Show() {
   const [final, setFinal] = useState([]);
   const [type, setType] = useState("trending");
-  //  const OMDB_API_KEY ="95e6ba64";
+   const OMDB_API_KEY ="95e6ba64";
   const [page, setPage] = useState(1);
   const n = useNavigate();
-  const OMDB_API_KEY = "135eb90e";
+  // const OMDB_API_KEY = "135eb90e";
   // var type = "upcoming";
   const OmdbCall = async (id) => {
     try {
@@ -38,7 +38,7 @@ function Show() {
           return b;
         })
       );
-      console.log(f);
+      // console.log(f);
       setFinal((p) => [...p, ...f]);
     } else if (type === "upcoming") {
       var f = [];
@@ -55,7 +55,7 @@ function Show() {
       );
       const res2=f.filter(Boolean);
       // console.log(f);
-      console.log(res2);
+      // console.log(res2);
       setFinal((p) => [...p, ...res2]);
     } else if (type === "trending") {
       var f = [];
@@ -63,7 +63,7 @@ function Show() {
         params: { limit: 20, page: page }, // upcoming
         // params: { limit: 20 }, // upcoming
       });
-      console.log(response2);
+      // console.log(response2);
       f = await Promise.all(
         response2.data.map(async (info) => {
           const res = await OmdbCall(info.show.ids.imdb);
@@ -72,7 +72,7 @@ function Show() {
       );
       const res2=f.filter(Boolean);
       // console.log(f);
-      console.log(res2);
+      // console.log(res2);
       setFinal((p) => [...p, ...res2]);
     } else if (type === "popular") {
       var f = [];
@@ -80,7 +80,7 @@ function Show() {
         params: { limit: 20, page: page }, // upcoming
         // params: { limit: 20 }, // upcoming
       });
-      console.log(response);
+      // console.log(response);
       f = await Promise.all(
         response.data.map(async (info) => {
           const res = await OmdbCall(info.ids.imdb);
@@ -89,7 +89,7 @@ function Show() {
       );
       const res2=f.filter(Boolean);
       // console.log(f);
-      console.log(res2);
+      // console.log(res2);
       setFinal((p) => [...p, ...res2]);
       //    const response1 = await Call.get('/movies/popular');//popular
     }
@@ -100,14 +100,14 @@ function Show() {
   };
   useEffect(() => {
     movies(); // Call the function on component mount
-  }, [page]);
+  }, [page,type]);
   useEffect(() => {
-    setFinal([]);
+      setFinal([]);
     setPage(1);
-    movies();
+    // movies();
   }, [type]);
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#181818] w-screen text-[#F1F1F1] pl-8 pt-4">
+    <div className="min-h-screen relative overflow-x-hidden bg-[#181818] w-screen text-[#F1F1F1] pl-8 pt-4">
       <div className="top w-screen flex items-center gap-16">
         <div className="top flex items-center gap-6">
           <i
@@ -147,6 +147,9 @@ function Show() {
           )})}
         </div>
       </InfiniteScroll>
+      <button  onClick={()=>{window.scrollTo({ top: 0, behavior: 'smooth' })}} className="bg-[#FF4500] px-3 py-1 absolute right-8 rounded-full bottom-16">
+      <i className="ri-arrow-up-fill h-20 w-20 "></i>
+      </button>
     </div>
   );
 }

@@ -36,10 +36,10 @@ function CelebDetail() {
   var res;
 
   async function featured() {
-    console.log(item);
+    // console.log(item);
     res = await OmdbCall(celebs.known_for.id);
     if (res) {
-        console.log(res)
+        // console.log(res)
       setMovieDetails(res); // Set the response data in state if successful
     }
   }
@@ -69,9 +69,9 @@ function CelebDetail() {
         <p className="text-lg pt-5 pr-10">
           {celebs.mini_bio}
           <br></br>
-          <Link to={`${celebs.url}`} className="text-2xl text-[#FF4500]">
+          <a href={`${celebs.url}`} className="text-2xl text-[#FF4500]">
             To imdb
-          </Link>{" "}
+          </a>{" "}
         </p>
         <h1 className="bg-[#FF4500] rounded-full text-lg absolute bottom-10 left-96 p-2 px-4">
           {celebs.rank_movement}
@@ -86,8 +86,8 @@ function CelebDetail() {
             src={`${movieDetails.Poster}`}
           /> 
           <div className="">
-            <p className="text-[1.9vw]">{movieDetails.Title}
-            </p> 
+            <Link to={`/details/${movieDetails.imdbID}`} className="text-[1.9vw] hover:text-[#FF4500]">{movieDetails.Title}
+            </Link> 
             <h1> Released on:{movieDetails.Released
             }</h1>
             <h1 className="font-semibold">{movieDetails.

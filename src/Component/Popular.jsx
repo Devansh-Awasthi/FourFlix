@@ -32,9 +32,9 @@ function Popular() {
     if (type === "movies") {
       var f = [];
       const response1 = await Call.get("/movies/popular", {
-        params: { limit: 20, page: page },
+        params: { limit:12, page: page },
       }); //upcoming
-      console.log(response1);
+      // console.log(response1);
       f = await Promise.all(
         response1.data.map(async (info) => {
           const res = await OmdbCall(info.ids.imdb);
@@ -43,15 +43,15 @@ function Popular() {
       );
       const res2=f.filter(Boolean);
       // console.log(f);
-      console.log(res2);
+      // console.log(res2);
       setFinal((p) => [...p, ...res2]);
     } else  {
       var f = [];
       const response2 = await Call.get("/shows/trending", {
-        params: { limit: 20, page: page }, // upcoming
+        params: { limit: 12, page: page }, // upcoming
         // params: { limit: 20 }, // upcoming
       });
-      console.log(response2);
+      // console.log(response2);
       f = await Promise.all(
         response2.data.map(async (info) => {
           const res = await OmdbCall(info.show.ids.imdb);
@@ -60,7 +60,7 @@ function Popular() {
       );
       const res2=f.filter(Boolean);
       // console.log(f);
-      console.log(res2);
+      // console.log(res2);
       setFinal((p) => [...p, ...res2]);
     } 
 
@@ -68,16 +68,17 @@ function Popular() {
     // const res= await Toprated.get();        // toprated
     // console.log(response1);
   };
-  useEffect(() => {
-    movies(); // Call the function on component mount
-  }, [page]);
+
   useEffect(() => {
     setFinal([]);
     setPage(1);
-    movies();
+    // movies();
   }, [type]);
+  useEffect(() => {
+    movies(); // Call the function on component mount
+  }, [page,type]);
   return (
-    <div className="min-h-screen overflow-x-hidden bg-[#181818] w-screen text-[#F1F1F1] pl-8 pt-4">
+    <div className="min-h-screen relative overflow-x-hidden bg-[#181818] w-screen text-[#F1F1F1] pl-8 pt-4">
       <div className="top w-screen flex items-center gap-16">
         <div className="top flex items-center gap-6">
           <i
@@ -111,14 +112,19 @@ function Popular() {
         hasMore={true}
         next={() => setPage((page) => page + 1)}
       >
-        <div className="flex gap-12 mt-7 max-h-fit w-screen overflow-auto flex-wrap">
+        <div className="flex gap-12  mt-7 max-h-fit w-screen overflow-auto flex-wrap">
           {final.map((item, i) => {
             // console.log(`Selected show ID:${item.imdbID}`);
             return(        
            <Card data={item} key={i} />
           )})}
+
         </div>
+
       </InfiniteScroll>
+      <button  onClick={()=>{window.scrollTo({ top: 0, behavior: 'smooth' })}} className="bg-[#FF4500] px-3 py-1 absolute right-8 rounded-full bottom-16">
+      <i className="ri-arrow-up-fill h-20 w-20 "></i>
+      </button>
     </div>
   );
 }

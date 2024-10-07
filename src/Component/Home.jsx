@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import LeftNav from '../Partials/LeftNav'
+import React, { useEffect, useState } from "react";
+import LeftNav from "../Partials/LeftNav";
 // import RestHome from '../Partials/RestHome'
-import TopNav from '../Partials/TopNav'
-import Header from '../Partials/Header'
-import Hcards from '../Partials/Hcards'
-import Call from '../Utils/Call'
-import axios from 'axios'
+import TopNav from "../Partials/TopNav";
+import Header from "../Partials/Header";
+import Hcards from "../Partials/Hcards";
+import Call from "../Utils/Call";
+import axios from "axios";
 function Home() {
-    document.title='Movie App|Home'
+  document.title = "Movie App|Home";
   const k = "95e6ba64";
   const [trending, setTrending] = useState([]);
   var [button, setButton] = useState(false);
@@ -43,9 +43,9 @@ function Home() {
           );
           traktMovie = [];
         }
-        var final = [...traktMovie.data||[], ...traktShow.data||[]];
-        console.log(traktMovie.data);
-        console.log(traktShow.data);
+        var final = [...(traktMovie.data || []), ...(traktShow.data || [])];
+        traktMovie.data;
+        // console.log(traktShow.data);
 
         var b = await Promise.all(
           final.map(async (i) => {
@@ -69,7 +69,7 @@ function Home() {
         );
 
         setTrending(b.filter((movie) => movie !== null));
-        console.log(b);
+        // console.log(b);
       } catch (e) {
         console.error(e);
       }
@@ -78,25 +78,23 @@ function Home() {
     fetchTrending();
   }, [filter]);
 
-
-
-
   return (
-    <div className='flex min-h-screen bg-[#181818] w-full'>
+    <div className="flex min-h-screen bg-[#181818] w-full">
       <LeftNav></LeftNav>
-      <div className='w-[80%] h-fit flex flex-col'>
-       
-      <TopNav></TopNav>
-      <Header></Header>
-      <Hcards  trending={trending}
+      <div className="w-[80%] h-fit flex flex-col">
+        <TopNav></TopNav>
+        <Header></Header>
+        <Hcards
+          trending={trending}
           setTrending={setTrending}
           filter={filter}
           setFilter={setFilter}
           button={button}
-          setButton={setButton}></Hcards>
+          setButton={setButton}
+        ></Hcards>
       </div>
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;

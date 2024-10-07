@@ -6,7 +6,7 @@ import { Link, useParams } from "react-router-dom";
 import Services from "../Utils/Services";
 
 function Details() {
-  const OMDB_API_KEY = "135eb90e";
+  // const OMDB_API_KEY = "135eb90e";
 
 const [just, setjust] = useState(null) 
   const obj = useParams();
@@ -21,7 +21,7 @@ const [just, setjust] = useState(null)
     Metacritic:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpJA2TAq3LHArRqd8LCQsRgnZdJOF-Y9Y9kw&s",
   };
-  // const OMDB_API_KEY ="95e6ba64";
+  const OMDB_API_KEY ="95e6ba64";
   const OmdbCall = async (id) => {
     try {
       const response = await axios.get(
@@ -52,7 +52,7 @@ const [just, setjust] = useState(null)
       setTrending(f);
       const ava= await Services.get(`${obj.id}`);
       setjust(ava.data);
-      console.log(ava.data);
+      // console.log(ava.data);
 
     }
   };

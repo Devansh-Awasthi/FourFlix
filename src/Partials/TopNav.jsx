@@ -21,7 +21,7 @@ function TopNav() {
             setv(y.data.Search);
           }
         } catch (error) {
-          console.log(error);
+          // console.log(error);
         }
       }
     };
@@ -45,7 +45,6 @@ function TopNav() {
             return (
               <Link key={index}
               to={`/details/${data.imdbID}`} 
-              onClick={()=>console.log(data.imdbID)}
           
               >
               <div
