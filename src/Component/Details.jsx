@@ -37,22 +37,23 @@ const [just, setjust] = useState(null)
     var res = await OmdbCall(obj.id);
     if (res) {
       setDetails(res.data);
-      console.log(res.data);
+      // console.log(res.data);
       const type = res.Type === 'movie'?'shows':'movies';
       const id= res.imdbID;
 
       var pop = await Call.get(`/${type}/${id}/related`);
-      console.log(pop);
+      // console.log(pop);
       const f = await Promise.all(
         pop.data.map(async (item) => {
           return await OmdbCall(item.ids.imdb);
         })
       );
+      // console.log(f);
+      setTrending(f);
       const ava= await Services.get(`${obj.id}`);
       setjust(ava.data);
       console.log(ava.data);
-      console.log(f);
-      setTrending(f);
+
     }
   };
   useEffect(() => {
@@ -159,7 +160,7 @@ const [just, setjust] = useState(null)
           <div className=" overflow-x-auto absolute w-full">
             <h1 className="font-semibold  text-[1.9vw] ">Recomended</h1>
             <div className="bg-transparent p-3  h-[50vh] flex gap-4 flex-nowrap w-max items-center">
-              {trending.map((item, index) => {
+              {trending && trending.map((item, index) => {
                 return (
                   <Link key={index}  to={`/details/${item.data.imdbID}`} >
                   <div >
