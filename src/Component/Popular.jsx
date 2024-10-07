@@ -20,7 +20,7 @@ function Popular() {
   const OmdbCall = async (id) => {
     try {
       const response = await axios.get(
-        `http://www.omdbapi.com/?i=${id}&apikey=${OMDB_API_KEY}`
+        `https://www.omdbapi.com/?i=${id}&apikey=${OMDB_API_KEY}`
       );
       if(response != null) {
       return response.data;

@@ -25,7 +25,7 @@ const [just, setjust] = useState(null)
   const OmdbCall = async (id) => {
     try {
       const response = await axios.get(
-        `http://www.omdbapi.com/?i=${id}&apikey=${OMDB_API_KEY}`
+        `https://www.omdbapi.com/?i=${id}&apikey=${OMDB_API_KEY}`
       );
       return response;
     } catch (e) {

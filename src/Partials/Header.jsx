@@ -32,7 +32,7 @@ function Header() {
       a = imdbIds.map(async (element) => {
         try {
           const y = await axios.get(
-            `http://www.omdbapi.com/?i=${element}&apikey=${k}`
+            `https://www.omdbapi.com/?i=${element}&apikey=${k}`
           );
           if (y.data) {
             // console.log(y.data);

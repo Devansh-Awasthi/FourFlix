@@ -14,7 +14,7 @@ function TopNav() {
       if (In) {
         try {
           const y = await axios.get(
-            `http://www.omdbapi.com/?s=${In}&apikey=${k}`
+            `https://www.omdbapi.com/?s=${In}&apikey=${k}`
           );
           if (y.data.Search) {
             // console.log(y.data.Search);

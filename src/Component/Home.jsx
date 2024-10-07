@@ -52,12 +52,12 @@ function Home() {
             try {
               if (i.movie && i.movie.ids && i.movie.ids.imdb) {
                 const omdbMovie = await axios.get(
-                  `http://www.omdbapi.com/?i=${i.movie.ids.imdb}&apikey=${k}`
+                  `https://www.omdbapi.com/?i=${i.movie.ids.imdb}&apikey=${k}`
                 );
                 return omdbMovie.data;
               } else {
                 const omdbShow = await axios.get(
-                  `http://www.omdbapi.com/?i=${i.show.ids.imdb}&apikey=${k}`
+                  `https://www.omdbapi.com/?i=${i.show.ids.imdb}&apikey=${k}`
                 );
                 return omdbShow.data;
               }

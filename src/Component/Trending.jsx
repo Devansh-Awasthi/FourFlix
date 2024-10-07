@@ -53,7 +53,7 @@ function Trending() {
           const imdbId = item.movie ? item.movie.ids.imdb : item.show.ids.imdb;
           try {
             const response = await axios.get(
-              `http://www.omdbapi.com/?i=${imdbId}&apikey=${OMDB_API_KEY}`
+              `https://www.omdbapi.com/?i=${imdbId}&apikey=${OMDB_API_KEY}`
             );
             return response.data; // OMDB returns data directly
           } catch (error) {

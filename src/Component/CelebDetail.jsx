@@ -21,7 +21,7 @@ function CelebDetail() {
   const OmdbCall = async (id) => {
     try {
       const response = await axios.get(
-        `http://www.omdbapi.com/?i=${id}&apikey=${OMDB_API_KEY}`
+        `https://www.omdbapi.com/?i=${id}&apikey=${OMDB_API_KEY}`
       );
       if (response && response.data) {
         return response.data; // Return the movie data
