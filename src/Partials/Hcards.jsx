@@ -50,7 +50,7 @@ function Hcards({trending,setFilter,button,setButton}) {
                     {" "}
                     <p className="ml-4">
                       {item.Plot.slice(0, 85)}
-                      <Link to={`/details/${item.imdbID}`} className="text-[#FF8C00]">...Read more</Link>
+                      <span className="text-[#FF8C00]">...Read more</span>
                     </p>
                   </span>
                 </Link>
